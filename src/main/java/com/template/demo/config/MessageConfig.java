@@ -1,11 +1,14 @@
 package com.template.demo.config;
 
-import com.template.demo.messaging.MQSender;
+import com.template.demo.messaging.ActiveMQReceiver;
+import com.template.demo.messaging.MQDispatcher;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.ActiveMQDispatcher;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
 
 import javax.jms.ConnectionFactory;
@@ -35,9 +38,22 @@ public class MessageConfig {
 	}
 
 	@Bean
-	public MQSender activeMQSender(final JmsTemplate jmsTemplate,
-			@Value("${activemq.sender.topic}") final String senderTopic) {
+	public DefaultJmsListenerContainerFactory topicJmsListenerContainerFactory(
+			final ConnectionFactory connectionFactory, @Value("${activemq.clientId}") final String clientId,
+			@Value("${activemq.durable}") final boolean durable) {
 
-		return new MQSender(jmsTemplate, senderTopic);
+		final DefaultJmsListenerContainerFactory listenerContainerFactory = new DefaultJmsListenerContainerFactory();
+		listenerContainerFactory.setConnectionFactory(connectionFactory);
+		if (durable) {
+			listenerContainerFactory.setSubscriptionDurable(Boolean.TRUE);
+			listenerContainerFactory.setClientId(clientId);
+		}
+
+		return listenerContainerFactory;
+	}
+
+	@Bean
+	public ActiveMQReceiver activeMQReceiver(final MQDispatcher mqDispatcher) {
+		return new ActiveMQReceiver(mqDispatcher);
 	}
 }

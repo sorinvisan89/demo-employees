@@ -10,11 +10,11 @@
     </parent>
     
     <groupId>com.template</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>demo-employees</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
+    <name>demo-employees</name>
     
-    <description>Demo implementation project</description>
+    <description>Demo implementation project for employees</description>
     <properties>
         <activemq.version>5.17.0</activemq.version>
         <jackson-databind-nullable.version>0.2.2</jackson-databind-nullable.version>
@@ -207,7 +207,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/openapi/spec/department.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/openapi/spec/employees.yaml</inputSpec>
                             <generatorName>spring</generatorName>
                             <apiPackage>com.template.demo.api</apiPackage>
                             <invokerPackage>com.template.demo.invoker</invokerPackage>

@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
-  description: Provides the specification for the Departments Microservice API
+  description: Provides the specification for the Employees Microservice API
   version: "1.0.0"
-  title: DEPARTMENTS API
+  title: EMPLOYEES API
 
 tags:
-  - name: Departments
-    description: Controller to handle departments
+  - name: Employees
+    description: Controller to handle employees
 
 components:
   responses:
@@ -19,46 +19,44 @@ components:
 
   schemas:
 
-    DepartmentRequestDTO:
+    EmployeeRequestDTO:
       type: object
-      description: A department request
-      x-constraints: "@DepartmentValid"
+      description: An employee request
       required:
         - name
         - description
       properties:
         name:
           type: string
-          description: The department name
+          description: The employee name
         description:
           type: string
-          description: The department description
+          description: The employee description
+        departmentId:
+          type: integer
+          description: The department Id
+        age:
+          type: integer
+          description: The employee age
 
 
-    DepartmentResponseDTO:
+    EmployeeResponseDTO:
       type: object
       allOf:
-        - $ref: '#/components/schemas/DepartmentRequestDTO'
-      description: A department object
-      required:
-        - enabled
+        - $ref: '#/components/schemas/EmployeeRequestDTO'
+      description: An response employee object
       properties:
         id:
           type: integer
-          description: The department Id
-        name:
-          type: string
-          description: The department name
-        description:
-          type: string
+          description: The employee Id
 
 paths:
-  "/departments":
+  "/employees":
     get:
       tags:
-        - Departments
-      operationId: getDepartments
-      description: Gets all the departments
+        - Employees
+      operationId: getEmployees
+      description: Gets all the employees
       parameters:
         - name: page
           in: query
@@ -72,74 +70,74 @@ paths:
             type: integer
       responses:
         "200":
-          description: The departments were retrieved successfully
+          description: The employees were retrieved successfully
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/DepartmentResponseDTO'
+                  $ref: '#/components/schemas/EmployeeResponseDTO'
         "404":
           $ref: "#/components/responses/NotFound"
     post:
       tags:
-        - Departments
-      operationId: createDepartment
-      description: Create a department
+        - Employees
+      operationId: addEmployee
+      description: Add an employee
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DepartmentRequestDTO"
+              $ref: "#/components/schemas/EmployeeRequestDTO"
       responses:
         "201":
-          description: Department has been created.
+          description: Employee has been added.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DepartmentResponseDTO'
+                $ref: '#/components/schemas/EmployeeResponseDTO'
         "404":
           $ref: "#/components/responses/NotFound"
 
-  "/departments/{departmentId}":
+  "/employees/{employeeId}":
     get:
       tags:
-        - Departments
-      operationId: getDepartment
-      description: Retrieve a department based on department Id
+        - Employees
+      operationId: getEmployee
+      description: Retrieve a employee based on employee Id
       parameters:
-        - name: departmentId
+        - name: employeeId
           in: path
           required: true
           schema:
             type: integer
       responses:
         "200":
-          description: Department has been retrieved successfully.
+          description: Employee has been retrieved successfully.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DepartmentResponseDTO'
+                $ref: '#/components/schemas/EmployeeResponseDTO'
         "404":
           $ref: "#/components/responses/NotFound"
     delete:
       tags:
-        - Departments
-      operationId: deleteDepartment
-      description: Deletes a department based on the department id
+        - Employees
+      operationId: deleteEmployee
+      description: Deletes an employee based on the employee id
       parameters:
-        - name: departmentId
+        - name: employeeId
           in: path
           required: true
           schema:
             type: integer
       responses:
         "204":
-          description: Department has been deleted.
+          description: Employee has been deleted.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DepartmentResponseDTO'
+                $ref: '#/components/schemas/EmployeeResponseDTO'
         "404":
           $ref: "#/components/responses/NotFound"
 

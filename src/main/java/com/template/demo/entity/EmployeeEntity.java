@@ -7,16 +7,16 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "departments")
+@Table(name = "employees")
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class DepartmentEntity {
+public class EmployeeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "department_id")
+	@Column(name = "employee_id")
 	private Integer id;
 
 	@Column(name = "name")
@@ -24,6 +24,12 @@ public class DepartmentEntity {
 
 	@Column(name = "description")
 	private String description;
+
+	@Column(name = "age")
+	private Integer age;
+
+	@Column(name = "department_id")
+	private Integer departmentId;
 
 	@Override
 	public boolean equals(Object o) {
@@ -33,7 +39,7 @@ public class DepartmentEntity {
 		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
 			return false;
 		}
-		DepartmentEntity that = (DepartmentEntity) o;
+		EmployeeEntity that = (EmployeeEntity) o;
 		return id != null && Objects.equals(id, that.id);
 	}
 
