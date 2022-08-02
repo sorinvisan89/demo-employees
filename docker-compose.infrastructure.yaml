@@ -21,7 +21,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: "employees"
+      POSTGRES_DB: "demo"
       POSTGRES_USER: "demo"
       POSTGRES_PASSWORD: "demo"
     healthcheck:
