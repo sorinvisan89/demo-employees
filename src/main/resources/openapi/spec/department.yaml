@@ -1,0 +1,145 @@
+openapi: 3.0.0
+info:
+  description: Provides the specification for the Departments Microservice API
+  version: "1.0.0"
+  title: DEPARTMENTS API
+
+tags:
+  - name: Departments
+    description: Controller to handle departments
+
+components:
+  responses:
+    BadRequest:
+      description: "Indicates the message body contained one or more errors."
+    NotFound:
+      description: "Indicates the identified resource does not exist."
+    Conflict:
+      description: "Indicates that the resource already exist and cannot be created"
+
+  schemas:
+
+    DepartmentRequestDTO:
+      type: object
+      description: A department request
+      x-constraints: "@DepartmentValid"
+      required:
+        - name
+        - description
+      properties:
+        name:
+          type: string
+          description: The department name
+        description:
+          type: string
+          description: The department description
+
+
+    DepartmentResponseDTO:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/DepartmentRequestDTO'
+      description: A department object
+      required:
+        - enabled
+      properties:
+        id:
+          type: integer
+          description: The department Id
+        name:
+          type: string
+          description: The department name
+        description:
+          type: string
+
+paths:
+  "/departments":
+    get:
+      tags:
+        - Departments
+      operationId: getDepartments
+      description: Gets all the departments
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: size
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: The departments were retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DepartmentResponseDTO'
+        "404":
+          $ref: "#/components/responses/NotFound"
+    post:
+      tags:
+        - Departments
+      operationId: createDepartment
+      description: Create a department
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DepartmentRequestDTO"
+      responses:
+        "201":
+          description: Department has been created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentResponseDTO'
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  "/departments/{departmentId}":
+    get:
+      tags:
+        - Departments
+      operationId: getDepartment
+      description: Retrieve a department based on department Id
+      parameters:
+        - name: departmentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Department has been retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentResponseDTO'
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      tags:
+        - Departments
+      operationId: deleteDepartment
+      description: Deletes a department based on the department id
+      parameters:
+        - name: departmentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Department has been deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentResponseDTO'
+        "404":
+          $ref: "#/components/responses/NotFound"
+

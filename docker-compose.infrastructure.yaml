@@ -1,0 +1,35 @@
+version: '2.1'
+
+services:
+
+  activemqcontainer:
+    container_name: activemq-demo
+    networks: [backing-services]
+    image: stratospheric/activemq-docker-image
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+      - "61613:61613"
+    environment:
+      ACTIVEMQ_STATIC_TOPICS: "department_sender_topic"
+
+  postgres:
+    container_name: postgres-demo
+    image: postgres
+    restart: always
+    networks: [backing-services]
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "demo"
+      POSTGRES_USER: "demo"
+      POSTGRES_PASSWORD: "demo"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U demo"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
+networks:
+  backing-services:
+    driver: bridge
