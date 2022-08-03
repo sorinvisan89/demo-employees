@@ -1,6 +1,6 @@
 package com.template.demo.service;
 
-import com.template.demo.entity.EmployeeEntity;
+import com.template.demo.domain.entity.EmployeeEntity;
 import com.template.demo.exception.MissingEntityException;
 import com.template.demo.mapper.EmployeeMapper;
 import com.template.demo.model.EmployeeRequestDTO;

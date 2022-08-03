@@ -30,6 +30,6 @@ WORKDIR /app
 ENV DOCKER_ACTIVE_MQ_CONTAINER=activemq-demo
 ENV DOCKER_DB_CONTAINER=postgres-demo
 
-ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,address=*:8002,server=y,suspend=n
+ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,address=*:8003,server=y,suspend=n
 
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=local", "-jar", "/app/employees.jar"]

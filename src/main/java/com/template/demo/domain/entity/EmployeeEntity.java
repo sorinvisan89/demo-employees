@@ -1,4 +1,4 @@
-package com.template.demo.entity;
+package com.template.demo.domain.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;

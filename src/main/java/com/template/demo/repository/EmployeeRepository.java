@@ -1,6 +1,6 @@
 package com.template.demo.repository;
 
-import com.template.demo.entity.EmployeeEntity;
+import com.template.demo.domain.entity.EmployeeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;

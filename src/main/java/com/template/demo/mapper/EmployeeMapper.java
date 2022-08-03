@@ -1,6 +1,6 @@
 package com.template.demo.mapper;
 
-import com.template.demo.entity.EmployeeEntity;
+import com.template.demo.domain.entity.EmployeeEntity;
 import com.template.demo.model.EmployeeRequestDTO;
 import com.template.demo.model.EmployeeResponseDTO;
 import org.mapstruct.Mapper;

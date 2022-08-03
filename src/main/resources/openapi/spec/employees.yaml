@@ -8,7 +8,11 @@ tags:
   - name: Employees
     description: Controller to handle employees
 
+security:
+  - bearerAuth: []
+
 components:
+
   responses:
     BadRequest:
       description: "Indicates the message body contained one or more errors."
@@ -16,6 +20,12 @@ components:
       description: "Indicates the identified resource does not exist."
     Conflict:
       description: "Indicates that the resource already exist and cannot be created"
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 
   schemas:
 
