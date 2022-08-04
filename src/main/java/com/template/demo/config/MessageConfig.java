@@ -44,6 +44,7 @@ public class MessageConfig {
 
 		final DefaultJmsListenerContainerFactory listenerContainerFactory = new DefaultJmsListenerContainerFactory();
 		listenerContainerFactory.setConnectionFactory(connectionFactory);
+		listenerContainerFactory.setPubSubDomain(true);
 		if (durable) {
 			listenerContainerFactory.setSubscriptionDurable(Boolean.TRUE);
 			listenerContainerFactory.setClientId(clientId);
